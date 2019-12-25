@@ -85,6 +85,22 @@
 		* return: Số bản ghi đã cập nhật
 		*/
 		public function doPrepareSql() {
+			$count = 0;
+			$a =$b="";
+			try {
+				$stmt = $this->db->prepare($queryTmpl);
+				
+				foreach ($paras as $k=>$v){
+					$a.=($k+1).",";
+					$b.=($v).",";
+					$stmt->bindValue($k+1, $v);
+				}
+				//$stmt->execute(); // bo di ma chay thu
+				
+			} catch(PDOException $ex) {	echo $ex; $count=-1; }
+			// xem dau ra the nao
+			$out = "trong: ".$queryTmpl." ".$a." ".$b;
+			return $out;
 		}	
 		
 		 
